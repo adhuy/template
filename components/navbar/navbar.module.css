@@ -1,0 +1,22 @@
+.hamburger-active > span:nth-child(1) {
+  @apply rotate-45;
+}
+
+.hamburger-active > span:nth-child(2) {
+  @apply scale-0;
+}
+
+.hamburger-active > span:nth-child(3) {
+  @apply -rotate-45;
+}
+
+.navbar-menu {
+  height: 0px;
+  overflow: hidden;
+  transition: height ease 0.5s;
+}
+
+.navbar-menu-active {
+  @apply h-screen;
+  transition: height ease 0.5s;
+}

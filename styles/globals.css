@@ -1,3 +1,41 @@
+:root {
+  --primary-color: #51c8ec;
+  --primary-color-gradient: #3088c8;
+  --accent-color: #f69421;
+  --accent-color-gradient: #ffc932;
+  --accent-color-background: #fae4cb;
+  --active-color: #11712c;
+  --active-color-background: #c2f0cf;
+  --font-color-1: #363636;
+  --font-color-2: #666666;
+  --font-color-placeholder: #c7c7cc;
+  --button-disable: #bdbdbd;
+  --button-disable-font: #828282;
+  --gradient-blue-login: linear-gradient(120deg, #194a6b, #2e80bc 65%);
+  --gradient-blue: linear-gradient(
+    0deg,
+    var(--primary-color-gradient) 0.12%,
+    var(--primary-color) 100%
+  );
+  --gradient-blue-hover: linear-gradient(
+    0deg,
+    var(--primary-color-gradient) 0.12%,
+    #8de3fd 100%
+  );
+  --gradient-orange: linear-gradient(
+    0deg,
+    var(--accent-color) 0%,
+    var(--accent-color-gradient) 99.88%
+  );
+  --gradient-orange-hover: linear-gradient(
+    0deg,
+    var(--accent-color-gradient) 0%,
+    #ffa740 99.88%
+  );
+}
+
+@tailwind base;
+
 html,
 body {
   padding: 0;
@@ -7,10 +45,45 @@ body {
 }
 
 a {
-  color: inherit;
+  color: blue;
   text-decoration: none;
 }
 
 * {
   box-sizing: border-box;
 }
+
+input.bordered,
+textarea.bordered,
+select.bordered {
+  @apply rounded-md;
+  border: 1.5px solid #c7c7cc;
+}
+
+input,
+textarea {
+  @apply w-full bg-white py-1 px-3 text-base;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  @apply bg-gray-300 border-gray-400 text-gray-500;
+}
+
+input::placeholder{
+  @apply text-gray-400;
+}
+
+input[readonly] {
+  @apply bg-gray-100;
+}
+
+/* input:focus,
+textarea:focus,
+select:focus {
+  @apply border-2 border-teal-400;
+} */
+
+@tailwind components;
+@tailwind utilities;
