@@ -14,13 +14,20 @@ export default function InputField(props) {
       disabled,
       readOnly,
       autoComplete,
+      leftIcon,
       rightIcon,
       maxLength,
       floatMode,
       floatLabel
     } = props;
 
-    const customClassInputError = [styles.textfield, isEmpty ? styles['red-textfield'] : ''].filter(Boolean).join(' ');
+    const customClassInputError = classNames(
+      [styles.textfield, isEmpty ? styles['red-textfield'] : ''].filter(Boolean).join(' '),
+      {
+        'pl-10' : leftIcon,
+        'pr-10' : rightIcon
+      }
+    );
 
     const customClassFloatMode = classNames(
       'border-b py-1 focus:outline-none focus:border-teal-400 focus:border-b-2 transition-colors peer',
@@ -39,6 +46,11 @@ export default function InputField(props) {
 
     return (
       <div className="relative">
+        {leftIcon &&
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+            {leftIcon}
+          </span>
+        }
         <input
           id={name}
           className={floatMode ? customClassFloatMode : customClassInputError}
@@ -53,9 +65,9 @@ export default function InputField(props) {
           maxLength={maxLength}
         />
         {rightIcon &&
-          <div className={styles['show-right-icon']}>
-            <span>{rightIcon}</span>
-          </div>
+          <span className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer">
+            {rightIcon}
+          </span>
         }
         {isEmpty &&
           <div className='mt-1 text-xs text-red-600 font-semibold italic'>{message}</div>
@@ -80,6 +92,7 @@ InputField.defaultProps = {
   disabled: false,
   readOnly: false,
   autoComplete: 'off',
+  leftIcon: null,
   rightIcon: null,
   maxLength: 255,
   floatMode: false,
@@ -97,6 +110,7 @@ InputField.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   autoComplete: PropTypes.string,
+  leftIcon: PropTypes.element,
   rightIcon: PropTypes.element,
   maxLength: PropTypes.number,
   floatMode: PropTypes.bool,

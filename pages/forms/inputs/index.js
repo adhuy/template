@@ -3,6 +3,7 @@ import Layout from "../../../components/Layout";
 import TextField from "../../../components/fragments/inputs/TextField";
 import Password from "../../../components/fragments/inputs/Password";
 import InputField from "../../../components/elements/forms/inputField";
+import { MdEmail } from "react-icons/md";
 
 export default function Inputs() {
     const [inputEmail, setInputEmail] = useState('');
@@ -30,6 +31,7 @@ export default function Inputs() {
                                     placeholder="Input email here..."
                                     onChange={(event) => setInputEmail(event.target.value)}
                                     value={inputEmail}
+                                    leftIcon={<MdEmail color="#2dd4bf"/>}
                                 />
                             </div> 
                             <span className="lg:w-1/5 lg:ml-2">
