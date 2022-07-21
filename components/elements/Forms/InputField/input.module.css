@@ -18,5 +18,5 @@
 }
 
 .red-textfield {
-  border: 2px solid #b91c1c;
+  @apply border-2 border-red-400;
 }
