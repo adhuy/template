@@ -8,7 +8,7 @@ const TextField = () => {
     return(
         <Fragment>
             <h1 className="text-4xl font-bold">Text</h1>
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col lg:flex-row lg:mt-2">
                 <div className="mt-2 p-4 lg:w-1/2">
                     <InputField 
                         name="inputText"

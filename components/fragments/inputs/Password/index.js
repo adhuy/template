@@ -10,8 +10,9 @@ const Password = () => {
     return(
         <Fragment>
             <h1 className="text-4xl font-bold">Password</h1>
-            <div className="flex flex-col lg:flex-row">
-                <div className="mt-2 p-4 lg:w-1/2">
+            <div className="flex flex-col lg:flex-row lg:mt-2">
+                <div className="p-4 lg:w-1/2">
+                    <label className="text-lg">Basic Input</label>
                     <InputField
                         name="inputPassword1"
                         type="password"
@@ -20,7 +21,8 @@ const Password = () => {
                         value={inputPassword1}
                     />
                 </div>
-                <div className="mt-2 p-4 lg:w-1/2">
+                <div className="p-4 lg:w-1/2">
+                    <label className="text-lg">Show Hide</label>
                     <InputField
                         name="inputPassword2"
                         type={showHide ? 'text' : 'password'}
