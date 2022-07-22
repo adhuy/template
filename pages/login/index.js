@@ -1,76 +1,83 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import InputField from '../../components/elements/forms/inputField';
 import styles from './login.module.css';
+import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 
 export default function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [submit, setSubmit] = useState(false);
+    const [showHide, setShowHide] = useState(false);
     const router = useRouter();
-    
-    const submitLogin = async (event) => {
-        event.preventDefault();
-        setSubmit(true);
 
-        if(username && password){
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            password: ''
+        },
+        validationSchema: Yup.object({
+            username: Yup.string()
+            .required('Required')
+            .min(5, 'Too Short! (minimum 5 characters)'),
+            password: Yup.string()
+            .required('Required')
+            .min(6, 'Too Short! (minimum 6 characters)')
+        }),
+        onSubmit: () => {
             router.push('/dashboard');
         }
-    };
-    
-    const usernameError = submit && !username ? true : false;
-    const passwordError = submit && !password ? true : false;
+    });
 
     return (
-        <div className={`${styles.container} items-center`}>
-            <div className={`${styles.content} flex flex-col`}>
-                <div className='text-3xl font-bold text-center m-2'><h1>Login</h1></div>
-                <hr className='mt-1' />
-                <form>
-                    <section className={styles.section}>
-                        <label>
-                            <h3 className={styles.titleInput}>Username</h3>
-                        </label>
+        <div className="flex flex-col justify-center items-center w-screen h-screen bg-slate-100 relative overflow-auto">
+            <div className="flex flex-col w-[90%] bg-white rounded-xl absolute lg:w-1/4">
+                <div className='text-3xl text-white font-bold text-center py-4 rounded-t-xl bg-theme'><h1>Login</h1></div>
+                <form onSubmit={formik.handleSubmit}>
+                    <section className="m-4 mt-10">
                         <InputField 
                             name="username"
-                            onChange={(event) => setUsername(event.target.value)}
+                            onChange={formik.handleChange}
                             placeholder="Masukkan username Anda"
                             type="text"
-                            value={username}
-                            isEmpty={usernameError}
-                            message="Username harus diisi"
+                            value={formik.values.username}
+                            errorMessage={formik.errors.username ? formik.errors.username : null}
+                            floatLabel="Username"
+                            floatMode={true}
                         />
                     </section> 
-                    <section className={styles.section}>   
-                        <label>
-                            <h3 className={styles.titleInput}>Password</h3>
-                        </label>
+                    <section className="m-4 mt-10">
                         <InputField 
                             name="password"
-                            onChange={(event) => setPassword(event.target.value)}
+                            onChange={formik.handleChange}
                             placeholder="Masukkan password Anda"
-                            type="password"
-                            value={password}
-                            isEmpty={passwordError}
-                            message="Password harus diisi"
+                            type={showHide ? 'text' : 'password'}
+                            value={formik.values.password}
+                            errorMessage={formik.errors.password ? formik.errors.password : null}
+                            floatLabel="Password"
+                            floatMode={true}
+                            rightIcon={
+                                showHide ?
+                                    <IoIosEye onClick={() => setShowHide(!showHide)} color="#2dd4bf"/>
+                                :
+                                    <IoIosEyeOff  onClick={() => setShowHide(!showHide)} color="#f87171"/>
+                            }
                         />
                     </section>
                     <div className="items-center p-4">
                         <button
-                            className={styles.buttonLogin}
+                            className="py-2 w-full text-white font-semibold bg-theme rounded-lg"
                             disabled={false}
-                            onClick={submitLogin}
                             type="submit"
                             >
-                            Masuk
-                            {/* <Spinner active={loading} className={styles.spinner} /> */}
+                            Sign in
                         </button>
                     </div>
                 </form>
-                <div className="text-center mt-2 mb-6">
-                    Belum punya akun? <a className="font-medium" href="/registrasi"> Daftar Sekarang </a>
+                <div className="text-center mt-2 mb-6 text-sm">
+                    Don't have an account yet ? <a className="font-semibold text-blue-500" href="/registrasi"> Sign up </a>
                 </div>
             </div>
+            <div className={styles['bg-container']}></div>
         </div>
     )
 }
