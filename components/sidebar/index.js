@@ -2,9 +2,9 @@ import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CollapsIcon, HomeIcon, ArticleIcon } from '../Icons';
 import { FaChevronDown } from 'react-icons/fa';
-import { TbBrandNextjs } from 'react-icons/tb';
 
 const menuItems = [
     { id: 1, label: 'Dashboard', icon: HomeIcon, link: '/dashboard' },
@@ -110,10 +110,10 @@ const Sidebar = () => {
     return (
         <div className={wrapperClasses}>
             <div className="flex flex-col">
-              <div className="flex px-2 items-center justify-between relative">
+              <div className="flex flex-row px-2 items-center justify-between relative">
                 <div className={collapseBrandClasses}>
-                    <TbBrandNextjs size="30" />
-                    <span className="text-sm lg:text-xl">Brand Name</span>
+                    <Image src="/folker_logo.png" alt="Logo" width={35} height={30} />
+                    <span className="text-sm lg:text-xl">FolkPlate</span>
                 </div>
                 <button className={collapseMenuClasses} onClick={handleToggleMenu}>
                     <CollapsIcon fill="#2dd4bf" />
