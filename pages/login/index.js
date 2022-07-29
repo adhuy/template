@@ -29,8 +29,8 @@ export default function Login() {
     });
 
     return (
-        <div className="flex flex-col justify-center items-center w-screen h-screen bg-slate-100 relative overflow-auto">
-            <div className="flex flex-col w-[90%] bg-white rounded-xl absolute lg:w-1/4">
+        <div className={styles.container}>
+            <div className="flex flex-col w-[90%] bg-white rounded-xl absolute shadow-slate-300 shadow-sm lg:w-1/4">
                 <div className='text-3xl text-white font-bold text-center py-4 rounded-t-xl bg-theme'><h1>Login</h1></div>
                 <form onSubmit={formik.handleSubmit}>
                     <section className="m-4 mt-10">
@@ -77,7 +77,6 @@ export default function Login() {
                     Don't have an account yet ? <a className="font-semibold text-blue-500" href="/registrasi"> Sign up </a>
                 </div>
             </div>
-            <div className={styles['bg-container']}></div>
         </div>
     )
 }

@@ -37,6 +37,7 @@ const Sidebar = () => {
     const [subMenuOpen, setSubMenuOpen] = useState(false);
     const [parentActive, setParentActive] = useState('');
     const [pathActive, setPathActive] = useState('');
+    const [toggleMenuHover, setToggleMenuHover] = useState(false);
     const router = useRouter();
     
     const handleToggleMenu = () => {
@@ -55,7 +56,7 @@ const Sidebar = () => {
     const activeMenu = useMemo(() => menuItems.find(menu => menu.link === router.pathname),[router.pathname]);
 
     const wrapperClasses = classNames(
-        'hidden h-screen pt-4 pb-4 bg-white border-r-4 shadow-lg rounded-xl flex flex-col justify-between ease-in-out duration-300 lg:flex overflow-auto',
+        'hidden h-screen bg-white border-r-4 shadow-lg rounded-r-xl flex flex-col justify-between ease-in-out duration-300 lg:flex overflow-auto',
         {
             'w-72' : !toggleCollapse,
             'w-[4.5rem]' : toggleCollapse
@@ -70,7 +71,7 @@ const Sidebar = () => {
     );
 
     const collapseMenuClasses = classNames(
-        'p-2 right-0 border-2 rounded-lg',
+        'p-2 right-0 border-2 border-white rounded-lg hover:bg-white',
         {
             'ml-1 rotate-180 left-0' : toggleCollapse
         }
@@ -110,16 +111,20 @@ const Sidebar = () => {
     return (
         <div className={wrapperClasses}>
             <div className="flex flex-col">
-              <div className="flex flex-row px-2 items-center justify-between relative">
+              <div className="flex flex-row px-2 py-4 bg-theme items-center justify-between relative">
                 <div className={collapseBrandClasses}>
                     <Image src="/folker_logo.png" alt="Logo" width={35} height={30} />
-                    <span className="text-sm lg:text-xl">FolkPlate</span>
+                    <span className="text-sm text-white lg:text-xl">FolkPlate</span>
                 </div>
-                <button className={collapseMenuClasses} onClick={handleToggleMenu}>
-                    <CollapsIcon fill="#2dd4bf" />
+                <button
+                    className={collapseMenuClasses}
+                    onClick={handleToggleMenu}
+                    onMouseEnter={() => setToggleMenuHover(true)}
+                    onMouseLeave={() => setToggleMenuHover(false)}
+                >
+                    <CollapsIcon fill={toggleMenuHover ? '#2dd4bf' : 'white'}/>
                 </button>
               </div>
-              <div className=" mt-4 h-[2px] bg-theme"></div>
               <div className="flex flex-col items-start mt-4 p-2 text-white">
                 {menuItems.map(({ icon: Icon, ...menu }) => {
                     const classes = getNavItemClasses(menu);
